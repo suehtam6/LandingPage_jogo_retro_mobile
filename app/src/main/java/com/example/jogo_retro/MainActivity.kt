@@ -41,8 +41,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             Jogo_retroTheme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                   StartGame(modifier = Modifier.padding(innerPadding))
-                   // EndGame(modifier = Modifier.padding(innerPadding))
+                   //StartGame(modifier = Modifier.padding(innerPadding))
+                    EndGame(modifier = Modifier.padding(innerPadding))
 
 
                 }
@@ -92,7 +92,9 @@ fun StartGame(modifier: Modifier = Modifier) {
             }
 
 
+            val loop = (1..5).toList()
 
+            var carregarMeteoros =
             Row() {
                 AndroidEnemyMeteoro()
                 AndroidEnemyMeteoro()
