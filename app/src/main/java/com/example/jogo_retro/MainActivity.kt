@@ -43,8 +43,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             Jogo_retroTheme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    //StartGame(modifier = Modifier.padding(innerPadding))
-                    EndGame(modifier = Modifier.padding(innerPadding))
+                    StartGame(modifier = Modifier.padding(innerPadding))
+                    //EndGame(modifier = Modifier.padding(innerPadding))
 
 
                 }
@@ -63,7 +63,6 @@ fun StartGame(modifier: Modifier = Modifier) {
             Row(Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
-
 
             ) {
                 Text(
@@ -93,11 +92,9 @@ fun StartGame(modifier: Modifier = Modifier) {
 
             }
 
-            Row(modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
-                // Adicione um número de 1 a 6
-                EnemyBase(6)
-            }
+
+            // Adicione um número de 1 a 6
+            EnemyBase(6)
 
 
 
@@ -137,11 +134,9 @@ fun EndGame(modifier: Modifier = Modifier) {
 
     ){
 
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween) {
-            // Adicione um número de 1 a 6
-            EnemyBase(6)
-        }
+        // Adicione um número de 1 a 6
+        EnemyBase(6)
+
         Text(
             text = "GAME OVER",
             textAlign = TextAlign.Center,
@@ -157,12 +152,15 @@ fun EndGame(modifier: Modifier = Modifier) {
 fun EnemyBase(qtdeEnemy:  Int) {
 
     var iniciar = 1
+    Row(modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween) {
+        while (iniciar <= qtdeEnemy){
+            AndroidEnemyMeteoro()
+            iniciar++
 
-    while (iniciar <= qtdeEnemy){
-        AndroidEnemyMeteoro()
-        iniciar++
-
+        }
     }
+
 
 }
 
