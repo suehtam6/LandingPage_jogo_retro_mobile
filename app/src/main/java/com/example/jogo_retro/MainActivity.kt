@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusTargetModifierNode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -33,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jogo_retro.ui.theme.Jogo_retroTheme
+import kotlinx.coroutines.awaitAll
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Jogo_retroTheme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                   //StartGame(modifier = Modifier.padding(innerPadding))
+                    //StartGame(modifier = Modifier.padding(innerPadding))
                     EndGame(modifier = Modifier.padding(innerPadding))
 
 
@@ -91,40 +93,12 @@ fun StartGame(modifier: Modifier = Modifier) {
 
             }
 
-
-            val loop = (1..5).toList()
-
-            var carregarMeteoros =
-            Row() {
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-
+            Row(modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween) {
+                // Adicione um número de 1 a 6
+                EnemyBase(6)
             }
 
-            Row() {
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-
-            }
-
-            Row() {
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-                AndroidEnemyMeteoro()
-
-            }
 
 
             Box(
@@ -152,42 +126,46 @@ fun StartGame(modifier: Modifier = Modifier) {
 }
 
 
+
 @Composable
 fun EndGame(modifier: Modifier = Modifier) {
 
-    Box(modifier = Modifier
+    Box(modifier = modifier
         .fillMaxSize()
         .background(Color.Black),
         contentAlignment = Alignment.Center
 
     ){
 
-        Row() {
-            AndroidEnemyMeteoro()
-            AndroidEnemyMeteoro()
-            AndroidEnemyMeteoro()
-            AndroidEnemyMeteoro()
-            AndroidEnemyMeteoro()
-            AndroidEnemyMeteoro()
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween) {
+            // Adicione um número de 1 a 6
+            EnemyBase(6)
         }
+        Text(
+            text = "GAME OVER",
+            textAlign = TextAlign.Center,
+            fontSize = 60.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
 
 
+@Composable
+fun EnemyBase(qtdeEnemy:  Int) {
 
-            Text(
-                text = "GAME OVER",
-                textAlign = TextAlign.Center,
-                fontSize = 60.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Bold
-            )
+    var iniciar = 1
 
-
-
+    while (iniciar <= qtdeEnemy){
+        AndroidEnemyMeteoro()
+        iniciar++
 
     }
 
-
 }
+
 
 
 @Composable
@@ -206,7 +184,8 @@ fun AndroidEnemyHeart(modifier: Modifier = Modifier) {
 fun AndroidEnemyMeteoro(modifier: Modifier = Modifier) {
     Image(
         modifier = modifier
-            .size(70.dp),
+            .size(70.dp)
+            .fillMaxSize(),
         painter = painterResource(R.drawable.meteoro),
         contentDescription = "Android enemy"
     )
